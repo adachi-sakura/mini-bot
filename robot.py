@@ -182,6 +182,20 @@ class RobotBase:
         self._writer.write(body)
         self._writer.write(PACKET_TAIL_STRUCT.pack(*tail))
 
+    def _send_proto_with_head(self, head, proto):
+        head = head.SerializeToString()
+        body = proto.SerializeToString()
+        header = PacketHeader(head_magic=HEADER_MAGIC,
+                              cmd_id=self._get_cmd_id_by_proto(proto),
+                              head_len=len(head),
+                              body_len=len(body))
+        tail = PacketTail(tail_magic=TAIL_MAGIC)
+
+        self._writer.write(PACKET_HEADER_STRUCT.pack(*header))
+        self._writer.write(head)
+        self._writer.write(body)
+        self._writer.write(PACKET_TAIL_STRUCT.pack(*tail))
+
     async def _send_proto_wait_for_rsp(self, proto, log_rsp=True):
         # 获取rsp信息
         req_name = type(proto).__name__
@@ -203,6 +217,94 @@ class RobotBase:
             return None
 
         # 解析
+        rsp = rsp_class()
+        rsp.ParseFromString(rsp_bin)
+
+        if log_rsp:
+            self._log(f'%s\n%s', rsp_name, rsp, level=logging.INFO)
+            #   if rsp.retcode == pb_retcode.RET_SUCC
+            #   else logging.WARNING)
+        return rsp
+
+    async def _send_proto_with_head_wait_for_rsp(self,
+                                                 head,
+                                                 proto,
+                                                 log_rsp=True):
+        # 获取rsp信息
+        req_name = type(proto).__name__
+        assert req_name.endswith('Req'), 'proto必须是Req'
+        rsp_name = req_name[:-3] + 'Rsp'
+        rsp_cmd_id = self._get_cmd_id_by_name(rsp_name)
+        rsp_class = self._get_cmd_cls(rsp_cmd_id)
+
+        # push等待队列
+        future = asyncio.get_event_loop().create_future()
+        await self._waiting_rsp_futures_queues.setdefault(
+            rsp_cmd_id, asyncio.Queue()).put(future)
+
+        self._send_proto_with_head(head, proto)
+        try:
+            rsp_bin = await asyncio.wait_for(future, self._timeout)
+        except asyncio.TimeoutError:
+            self._log('等待 %s 超时', rsp_name)
+            return None
+
+        # 解析
+        rsp = rsp_class()
+        rsp.ParseFromString(rsp_bin)
+
+        if log_rsp:
+            self._log(f'%s\n%s', rsp_name, rsp, level=logging.INFO)
+            #   if rsp.retcode == pb_retcode.RET_SUCC
+            #   else logging.WARNING)
+        return rsp
+
+    async def _send_and_wait_for_rsp(self,
+                                     proto,
+                                     rsp_name,
+                                     head=pb_head.PacketHead(),
+                                     log_rsp=True):
+        # 获取rsp信息
+        rsp_cmd_id = self._get_cmd_id_by_name(rsp_name)
+        rsp_class = self._get_cmd_cls(rsp_cmd_id)
+
+        # push等待队列
+        future = asyncio.get_event_loop().create_future()
+        await self._waiting_rsp_futures_queues.setdefault(
+            rsp_cmd_id, asyncio.Queue()).put(future)
+
+        self._send_proto_with_head(head, proto)
+        try:
+            rsp_bin = await asyncio.wait_for(future, self._timeout)
+        except asyncio.TimeoutError:
+            self._log('等待 %s 超时', rsp_name)
+            return None
+
+        # 解析
+        rsp = rsp_class()
+        rsp.ParseFromString(rsp_bin)
+
+        if log_rsp:
+            self._log(f'%s\n%s', rsp_name, rsp, level=logging.INFO)
+            #   if rsp.retcode == pb_retcode.RET_SUCC
+            #   else logging.WARNING)
+        return rsp
+
+    async def _wait_for_rsp(self, rsp_name, log_rsp=True):
+        # 获取rsp信息
+        rsp_cmd_id = self._get_cmd_id_by_name(rsp_name)
+        rsp_class = self._get_cmd_cls(rsp_cmd_id)
+
+        # push等待队列
+        future = asyncio.get_event_loop().create_future()
+        await self._waiting_rsp_futures_queues.setdefault(
+            rsp_cmd_id, asyncio.Queue()).put(future)
+        try:
+            rsp_bin = await asyncio.wait_for(future, self._timeout)
+        except asyncio.TimeoutError:
+            self._log('等待 %s 超时', rsp_name)
+            return None
+
         rsp = rsp_class()
         rsp.ParseFromString(rsp_bin)
 
