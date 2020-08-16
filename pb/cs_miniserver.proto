@@ -1,0 +1,407 @@
+syntax = "proto3";
+package proto;
+
+enum CmdMiniServerType
+{
+    CmdMiniServerTypeNone = 0;
+	CmdInternalErrorRsp = 1;
+    CmdSumListReq = 2;//deprecated
+    CmdSumListRsp = 3;//deprecated
+	CmdLoginReq = 4;
+	CmdLoginRsp = 5;
+	CmdCreateRoomReq = 6;//deprecated
+	CmdCreateRoomRsp = 7;//deprecated
+	CmdJoinRoomReq = 8;
+	CmdJoinRoomRsp = 9;
+	CmdMatchReq = 10;
+	CmdMatchRsp = 11;//deprecated
+	CmdCancelMatchReq = 12;
+	CmdCancelMatchRsp = 13;
+	CmdPlayerExitedNotify = 14;
+	CmdRegisterReq = 15;
+	CmdRegisterRsp = 16;
+	CmdGameFinishNotify = 17;
+	CmdTeamScoreNotify = 18;
+	CmdFlagPointStateNotify = 19;
+	CmdAddressReq = 20;//deprecated
+	CmdAddressRsp = 21;//deprecated
+	CmdHandshakeRsp = 22;//deprecated
+	CmdGameMatchRsp = 23;
+	CmdRoomInfoNotify = 24;
+	CmdClientReadyNotify = 25;
+	CmdGameStartNotify = 26;
+	CmdMatchingStateNotify = 27;
+	CmdHeartbeatNotify = 28;
+	CmdSyncTimerNotify = 29;
+	CmdGameResultNotify = 30;
+	CmdGetShopInfoReq = 31;
+	CmdGetShopInfoRsp = 32;
+	CmdShoppingReq = 33;
+	CmdShoppingRsp = 34;
+	CmdConfigReloadedNotify = 35;
+	CmdProfileUpdateReq = 36;
+	CmdProfileUpdateRsp = 37;
+	CmdTankUpgradeReq = 38;
+	CmdTankUpgradeRsp = 39;
+	CmdCheckGamingReq = 40;
+	CmdSinglePlayReq = 41;
+}
+
+message InternalErrorRsp
+{
+	uint32 retcode	= 1;
+}
+
+
+message Item {
+	uint32 id = 1;
+	uint32 num = 2;
+};
+
+message Valkyrie
+{
+    uint32 id = 1;
+    uint32 amitie = 2;
+};
+
+message Tank
+{
+    uint32 id = 1;
+    uint32 level = 2;
+};
+
+message SumListReq
+{
+	repeated Item item_list = 1;
+};
+
+message SumListRsp
+{
+	uint32 retcode	= 1;
+    repeated Item item_list	= 2;
+};
+
+message RegisterReq
+{
+	string username = 1;
+	string password = 2;
+};
+
+message RegisterRsp
+{
+	uint32 retcode = 1;
+};
+
+message LoginReq
+{
+	string username = 1;
+	string password = 2;
+};
+
+message Profile
+{
+	uint32 wins = 1;
+	string title = 2;
+	string comment = 3;
+	string create_time = 4;
+};
+
+message LoginRsp
+{
+	uint32 retcode = 1;
+	uint32 uid = 2;
+	string nickname = 3;
+	uint32 stamina = 4;
+	uint32 gold = 5;
+	uint32 crystal = 6;
+	repeated Item items = 7;
+	Profile profile = 8;
+	repeated Valkyrie valkyrie_datas = 9;
+	repeated Tank tank_datas = 10;
+	bool is_first_login = 11;
+};
+
+message CreateRoomReq
+{};
+
+message CreateRoomRsp
+{
+	uint32 retcode = 1;
+	uint32 room_id = 2;
+};
+
+message JoinRoomReq
+{
+	uint32 room_id = 1;
+	string token = 2;
+};
+
+message JoinRoomRsp
+{
+	uint32 retcode = 1;
+};
+
+message MatchReq
+{
+	uint32 tank_type = 1;
+	uint32 valkyrie_type = 2;
+};
+
+message Player
+{
+	uint32 player_id = 1;
+	string name = 2;
+	uint32 tank_type = 3;
+	uint32 valkyrie_type = 4;
+	bool is_fake = 5;
+};
+
+message Team {
+	repeated Player players = 1;
+};
+
+message Room {
+	uint32 room_id = 1;
+	Team team_a = 2;
+	Team team_b = 3;
+	enum RoomType
+	{
+		TYPE_NONE = 0;
+		TYPE_MULTI = 1;
+		TYPE_SINGLE = 2;
+	};
+	RoomType type = 4;
+};
+
+message ServerAddress{
+	string ip = 1;
+	uint32 port = 2;
+};
+
+message GameMatchRsp
+{
+	uint32 retcode = 1;
+	uint32 room_id = 2;
+	ServerAddress addr = 3;
+	string token = 4;
+};
+
+message MatchRsp
+{
+	uint32 retcode = 1;
+	uint32 room_id = 2;
+	Team  team_a = 3;
+	Team  team_b = 4;
+};
+
+message CancelMatchReq
+{
+	string ip = 1;
+	uint32 port = 2;
+};
+
+message CancelMatchRsp
+{
+	uint32 retcode = 1;
+};
+
+message PlayerExitedNotify
+{
+	uint32 uid = 1;
+};
+
+message GameFinishNotify
+{
+	uint32 winner = 1;
+};
+
+message TeamScoreNotify
+{
+	uint32 team_id = 1;
+	uint32 score = 2;
+};
+
+message FlagPointStateNotify
+{
+	enum Status
+	{
+		STATUS_NEUTRAL = 0;
+		STATUS_LOADING_A = 1;
+        STATUS_LOADING_B = 2;
+        STATUS_CONFLICT = 3;
+        STATUS_OCCUPIED = 4;
+	};
+	enum Owner
+	{
+		NO_OWNER = 0;
+        TEAM_A_OWNER = 1;
+        TEAM_B_OWNER = 2;
+	};
+	uint32 id = 1;
+	Status status = 2;
+	Owner ownership = 3;
+	float control_rate = 4;
+
+};
+
+message AddressReq
+{
+	enum Server {
+		ServerNone = 0;
+		BattleServer = 1;
+	};
+	Server server = 1;
+};
+
+message AddressRsp
+{
+	uint32 retcode = 1;
+	string ip = 2;
+	uint32 port = 3;
+};
+
+message HandshakeRsp
+{
+	
+}
+
+message RoomInfoNotify
+{
+	Room room_info = 1;
+};
+
+message ClientReadyNotify{};
+
+message GameStartNotify{};
+
+message MatchingList
+{
+	uint32 id = 1;
+	uint32 cur_num = 2;
+};
+
+message MatchingStateNotify
+{
+	repeated MatchingList lists_status = 1;
+};
+
+message HeartbeatNotify
+{
+
+};
+
+message SyncTimerNotify
+{
+	enum TimerType
+	{
+		NO_TYPE = 0;
+		GAMEWORLD = 1;
+	};
+	TimerType type = 1;
+	uint32 left = 2;
+};
+
+
+
+message Statistic
+{
+    enum StatisticType
+	{
+    	TYPE_KILL = 0;
+    	TYPE_DEATH = 1;
+    	TYPE_DAMAGE = 2;
+    	TYPE_TAKE_DAMAGE = 3;
+	};
+    StatisticType type = 1;
+    uint32 value = 2;
+    uint32 maxValue = 3;
+	uint32 rank = 4;
+	uint32 totalPlayer = 5;
+};
+
+message GameResultNotify
+{
+	enum Result
+    {
+        NoneResult = 0;
+        Win = 1;
+        Lose = 2;
+    };
+	Result result = 1;
+	repeated Statistic statistics = 2;
+	repeated Item items = 3;
+	uint32 wins = 4;
+};
+
+message GetShopInfoReq
+{};
+
+message ShopItem
+{
+	uint32 id = 1;
+	uint32 itemID = 2;
+	enum CashType{
+		NONE = 0;
+		GOLD = 1;
+		CRYSTAL = 2;
+	};
+	CashType ShopBanner = 3;
+	uint32 shopItemAmount = 4;
+	uint32 shopItemPrice = 5;
+
+};
+
+message GetShopInfoRsp
+{
+	uint32 retcode = 1;
+	repeated ShopItem items = 2;
+};
+
+message ShoppingReq
+{
+	ShopItem item = 1;
+};
+
+message ShoppingRsp
+{
+	uint32 retcode = 1;
+	uint32 gold = 2;
+	uint32 crystal = 3;
+};
+
+message ConfigReloadedNotify
+{};
+
+message ProfileUpdateReq
+{
+	string nickname = 1;
+	Profile profile = 2;
+};
+
+message ProfileUpdateRsp
+{
+	string nickname = 1;
+	Profile profile = 2;
+};
+
+message TankUpgradeReq
+{
+	uint32 id = 1;
+};
+
+message TankUpgradeRsp
+{
+	Tank tank = 1;
+	uint32 gold = 2;
+	repeated Item items = 3;
+};
+
+message CheckGamingReq
+{
+
+};
+message SinglePlayReq
+{
+	uint32 tank_type = 1;
+	uint32 valkyrie_type = 2;
+};

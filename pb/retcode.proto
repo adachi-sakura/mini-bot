@@ -1,0 +1,25 @@
+/***************************************************************************
+ * 
+ * Copyright (c) 2020 miHoYo.com, Inc. All Rights Reserved
+ * 
+ **************************************************************************/
+ 
+ /**
+ * @file retcode.proto
+ * @author chuanqi.kan(chuanqi.kan@mihoyo.com)
+ * @date 2020/05/12 19:25:39
+ * @brief 
+ **/
+
+syntax = "proto3";
+package proto;
+
+enum Retcode
+{
+    // [0,100) 基础错误码
+    RET_SUCC = 0;
+    RET_FAIL = 1;
+    RET_AUTHENTICATED_NEED = 2;
+}
+
+/* vim: set expandtab ts=4 sw=4 sts=4 tw=100: */

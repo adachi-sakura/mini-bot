@@ -10,8 +10,8 @@ import struct
 from typing import *
 
 import head_pb2 as pb_head
-import pb.cs_one_pb2 as pb_one
-import pb.retcode_pb2 as pb_retcode
+# import pb.cs_one_pb2 as pb_one
+# import pb.retcode_pb2 as pb_retcode
 
 logger = logging.getLogger(__name__)
 
@@ -21,16 +21,10 @@ TAIL_MAGIC = 0x89ABCDEF
 
 # 封包定义
 PACKET_HEADER_STRUCT = struct.Struct('!I2HI')
-PacketHeader = collections.namedtuple('PacketHeader', (
-    'head_magic',
-    'cmd_id',
-    'head_len',
-    'body_len'
-))
+PacketHeader = collections.namedtuple(
+    'PacketHeader', ('head_magic', 'cmd_id', 'head_len', 'body_len'))
 PACKET_TAIL_STRUCT = struct.Struct('!I')
-PacketTail = collections.namedtuple('PacketTail', (
-    'tail_magic'
-))
+PacketTail = collections.namedtuple('PacketTail', ('tail_magic'))
 
 cmd_id_class_map = {}
 cmd_name_id_map = {}
@@ -39,7 +33,8 @@ cmd_name_id_map = {}
 def init_pb_module(module):
     """使用新的protobuf模块需要调用这个"""
     for cmd_name in module.DESCRIPTOR.message_types_by_name:
-        if not (cmd_name.endswith('Req') or cmd_name.endswith('Rsp') or cmd_name.endswith('Notify')):
+        if not (cmd_name.endswith('Req') or cmd_name.endswith('Rsp')
+                or cmd_name.endswith('Notify')):
             continue
         cmd_cls = getattr(module, cmd_name, None)
         if cmd_cls is None:
@@ -51,15 +46,12 @@ def init_pb_module(module):
         cmd_name_id_map[cmd_name] = cmd_id
 
 
-init_pb_module(pb_one)
+# init_pb_module(pb_one)
 
 
 class RobotBase:
     """实现机器人需要的最少功能"""
-
-    def __init__(
-        self, host, port, token='robot', timeout=10
-    ):
+    def __init__(self, host, port, token='robot', timeout=10):
         # 机器人信息
         self._host = host
         self._port = port
@@ -90,25 +82,25 @@ class RobotBase:
     async def _login(self):
         # 连接
         try:
-            self._reader, self._writer = await asyncio.open_connection(self._host, self._port)
+            self._reader, self._writer = await asyncio.open_connection(
+                self._host, self._port)
         except ConnectionRefusedError:
             return False
-        self._receive_coroutine_future = asyncio.ensure_future(self._receive_coroutine())
+        self._receive_coroutine_future = asyncio.ensure_future(
+            self._receive_coroutine())
 
-        # 认证
-        auth_req = pb_one.PlayerAuthReq(
-            token=self._token
-        )
-        auth_rsp = await self._send_proto_wait_for_rsp(auth_req)
-        if auth_rsp.retcode != pb_retcode.RET_SUCC:
-            return False
-        self._uid = auth_rsp.uid
+        # # 认证
+        # auth_req = pb_one.PlayerAuthReq(token=self._token)
+        # auth_rsp = await self._send_proto_wait_for_rsp(auth_req)
+        # if auth_rsp.retcode != pb_retcode.RET_SUCC:
+        #     return False
+        # self._uid = auth_rsp.uid
 
-        # 登录
-        login_req = pb_one.PlayerLoginReq()
-        login_rsp = await self._send_proto_wait_for_rsp(login_req)
-        if login_rsp.retcode != pb_retcode.RET_SUCC:
-            return False
+        # # 登录
+        # login_req = pb_one.PlayerLoginReq()
+        # login_rsp = await self._send_proto_wait_for_rsp(login_req)
+        # if login_rsp.retcode != pb_retcode.RET_SUCC:
+        #     return False
         return True
 
     async def _logout(self):
@@ -124,7 +116,8 @@ class RobotBase:
     async def _receive_coroutine(self):
         while True:
             try:
-                header = await self._reader.readexactly(PACKET_HEADER_STRUCT.size)
+                header = await self._reader.readexactly(
+                    PACKET_HEADER_STRUCT.size)
                 header = PacketHeader(*PACKET_HEADER_STRUCT.unpack(header))
                 body = await self._reader.readexactly(header.body_len)
                 tail = await self._reader.readexactly(PACKET_TAIL_STRUCT.size)
@@ -134,7 +127,10 @@ class RobotBase:
                 break
 
             cmd_id = header.cmd_id
-            self._log(f'Received cmd_id=%d, %s', cmd_id, self._get_cmd_name(cmd_id), level=logging.DEBUG)
+            self._log(f'Received cmd_id=%d, %s',
+                      cmd_id,
+                      self._get_cmd_name(cmd_id),
+                      level=logging.DEBUG)
 
             # pop等待队列
             queue = self._waiting_rsp_futures_queues.get(cmd_id, None)
@@ -175,12 +171,10 @@ class RobotBase:
     def _send_proto(self, proto):
         head = pb_head.PacketHead().SerializeToString()
         body = proto.SerializeToString()
-        header = PacketHeader(
-            head_magic=HEADER_MAGIC,
-            cmd_id=self._get_cmd_id_by_proto(proto),
-            head_len=len(head),
-            body_len=len(body)
-        )
+        header = PacketHeader(head_magic=HEADER_MAGIC,
+                              cmd_id=self._get_cmd_id_by_proto(proto),
+                              head_len=len(head),
+                              body_len=len(body))
         tail = PacketTail(tail_magic=TAIL_MAGIC)
 
         self._writer.write(PACKET_HEADER_STRUCT.pack(*header))
@@ -198,7 +192,8 @@ class RobotBase:
 
         # push等待队列
         future = asyncio.get_event_loop().create_future()
-        await self._waiting_rsp_futures_queues.setdefault(rsp_cmd_id, asyncio.Queue()).put(future)
+        await self._waiting_rsp_futures_queues.setdefault(
+            rsp_cmd_id, asyncio.Queue()).put(future)
 
         self._send_proto(proto)
         try:
@@ -212,7 +207,9 @@ class RobotBase:
         rsp.ParseFromString(rsp_bin)
 
         if log_rsp:
-            self._log(f'%s\n%s', rsp_name, rsp, level=logging.INFO if rsp.retcode == pb_retcode.RET_SUCC else logging.WARNING)
+            self._log(f'%s\n%s', rsp_name, rsp, level=logging.INFO)
+            #   if rsp.retcode == pb_retcode.RET_SUCC
+            #   else logging.WARNING)
         return rsp
 
     def _log(self, msg, *args, level=logging.INFO, **kwargs):

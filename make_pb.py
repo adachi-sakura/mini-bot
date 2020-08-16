@@ -11,7 +11,7 @@ import subprocess
 import sys
 
 ROBOT_PATH = os.path.dirname(os.path.realpath(__file__))
-COMMON_PATH = os.path.realpath(os.path.join(ROBOT_PATH, '..', '..', 'common'))
+COMMON_PATH = os.path.realpath(os.path.join(ROBOT_PATH))
 PB_PATH = os.path.join(COMMON_PATH, 'pb')
 
 
