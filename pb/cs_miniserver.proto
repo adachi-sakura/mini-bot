@@ -272,7 +272,9 @@ message RoomInfoNotify
 
 message ClientReadyNotify{};
 
-message GameStartNotify{};
+message GameStartNotify{
+	uint32 world_timeout = 1;
+};
 
 message MatchingList
 {

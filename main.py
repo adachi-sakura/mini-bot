@@ -53,7 +53,7 @@ class SinglePlayRobot(robot.Robot):
             await asyncio.sleep(5)
 
     async def _operate(self):
-        asyncio.get_event_loop().create_task(self._heartbeat())
+        asyncio.get_event_loop().call_soon_threadsafe(self._heartbeat, self)
         login_rsp = await self._send_proto_wait_for_rsp(
             cs_pb.LoginReq(username='ada', password='ada'))
         if login_rsp.retcode == pb_retcode.RET_FAIL:
@@ -98,8 +98,8 @@ class GameRobot(robot.Robot):
 
     def letsDoThis(self):
         loop = asyncio.new_event_loop()
-        loop.create_task(self._heartbeat())
-        loop.run_until_complete(self.run())
+        loop.run_until_complete(self._heartbeat())
+        loop.call_soon_threadsafe(self.run, self)
 
     async def _operate(self):
         head = pb_head.PacketHead()
@@ -117,7 +117,7 @@ class GameRobot(robot.Robot):
         # await self._send_proto_wait_for_rsp(pb_one.ModifyNicknameReq(nickname='测试123'))
         # await self._send_proto_wait_for_rsp(pb_one.GetMainDataReq())
         # self._send_proto(pb_fight.GameStartNotify())
-        await asyncio.sleep(5)
+        await asyncio.sleep(200)
         self._status = 0
         pass
 
