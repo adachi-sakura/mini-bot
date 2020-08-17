@@ -49,11 +49,11 @@ class SinglePlayRobot(robot.Robot):
 
     async def _heartbeat(self):
         while self._status == 1:
-            self._send_proto(cs_pb.HeartbeatNotify)
+            self._send_proto(cs_pb.HeartbeatNotify())
             await asyncio.sleep(5)
 
     async def _operate(self):
-        asyncio.get_event_loop().call_soon_threadsafe(self._heartbeat, self)
+        asyncio.get_event_loop().call_soon_threadsafe(self._heartbeat)
         login_rsp = await self._send_proto_wait_for_rsp(
             cs_pb.LoginReq(username='ada', password='ada'))
         if login_rsp.retcode == pb_retcode.RET_FAIL:
@@ -93,15 +93,14 @@ class GameRobot(robot.Robot):
 
     async def _heartbeat(self):
         while self._status == 1:
-            self._send_proto(cs_pb.HeartbeatNotify)
+            self._send_proto(cs_pb.HeartbeatNotify())
             await asyncio.sleep(5)
 
     def letsDoThis(self):
-        loop = asyncio.new_event_loop()
-        loop.run_until_complete(self._heartbeat())
-        loop.call_soon_threadsafe(self.run, self)
+        asyncio.new_event_loop().run_until_complete(self.run())
 
     async def _operate(self):
+        asyncio.get_event_loop().call_soon_threadsafe(self._heartbeat)
         head = pb_head.PacketHead()
         head.user_id = self._uid
         self._send_proto_with_head(
