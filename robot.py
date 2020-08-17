@@ -131,6 +131,14 @@ class RobotBase:
                       cmd_id,
                       self._get_cmd_name(cmd_id),
                       level=logging.DEBUG)
+            rsp_class = self._get_cmd_cls(cmd_id)
+            if rsp_class != None:
+                rsp = rsp_class()
+                rsp.ParseFromString(body)
+                self._log(f'%s\n%s',
+                          self._get_cmd_name(cmd_id),
+                          rsp,
+                          level=logging.INFO)
 
             # pop等待队列
             queue = self._waiting_rsp_futures_queues.get(cmd_id, None)

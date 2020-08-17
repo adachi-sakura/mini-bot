@@ -21,7 +21,7 @@ async def main():
                         level=logging.DEBUG)
 
     # robot1 = RegisterRobot('10.10.98.112', 10000, token='robot')
-    robot1 = SinglePlayRobot('10.10.98.112', 10000, token='robot')
+    robot1 = SinglePlayRobot('10.10.98.112', 20000, token='robot')
     # robot2 = MyRobot2('10.10.98.111', 5000, token='robot2')
     await asyncio.gather(robot1.run())
     # await robot1.run()
@@ -43,7 +43,17 @@ class RegisterRobot(robot.Robot):
 
 
 class SinglePlayRobot(robot.Robot):
+    def __init__(self, host, port, token='robot', timeout=10):
+        super(SinglePlayRobot, self).__init__(host, port, token, timeout)
+        self._status = 1
+
+    async def _heartbeat(self):
+        while self._status == 1:
+            self._send_proto(cs_pb.HeartbeatNotify)
+            await asyncio.sleep(5)
+
     async def _operate(self):
+        asyncio.get_event_loop().create_task(self._heartbeat())
         login_rsp = await self._send_proto_wait_for_rsp(
             cs_pb.LoginReq(username='ada', password='ada'))
         if login_rsp.retcode == pb_retcode.RET_FAIL:
@@ -64,10 +74,10 @@ class SinglePlayRobot(robot.Robot):
         t = threading.Thread(target=game_robot.letsDoThis)
         t.start()
         while game_robot.isRun():
-            self._send_proto(cs_pb.HeartbeatNotify())
             await asyncio.sleep(5)
 
         t.join()
+
         # await self._send_proto_wait_for_rsp(pb_one.ModifyNicknameReq(nickname='测试123'))
         # await self._send_proto_wait_for_rsp(pb_one.GetMainDataReq())
         # self._send_proto(pb_fight.GameStartNotify())
@@ -81,8 +91,15 @@ class GameRobot(robot.Robot):
         self._status = 1
         self._uid = uid
 
+    async def _heartbeat(self):
+        while self._status == 1:
+            self._send_proto(cs_pb.HeartbeatNotify)
+            await asyncio.sleep(5)
+
     def letsDoThis(self):
-        asyncio.new_event_loop().run_until_complete(self.run())
+        loop = asyncio.new_event_loop()
+        loop.create_task(self._heartbeat())
+        loop.run_until_complete(self.run())
 
     async def _operate(self):
         head = pb_head.PacketHead()
