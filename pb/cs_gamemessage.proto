@@ -1,0 +1,129 @@
+syntax = "proto3";
+package PBMessage;
+
+enum CmdGameMessageType
+{
+    CmdGameMessageTypeNone = 0;
+    CmdMoveMessageNotify = 101;
+    CmdFireShellNotify = 102;
+    CmdSliderMessageNotify = 103;
+    CmdCheckHitMessageNotify = 104;
+    CmdKillMessageNotify = 105;
+    CmdLifeShieldNotify = 106;
+    CmdMagExplosionNotify = 107;
+    CmdLaserNotify = 108;
+    CmdBarrelExplosionNotify = 109;
+	//CmdStateMessageReq = 102;
+	
+}
+
+//定义Vector_Two，防止命名冲突
+message Vector_Two
+{
+	float x = 1;
+	float y = 2;
+}
+
+//定义Vector_Two，防止命名冲突
+message Vector_Three
+{
+	float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+// 定义移动相关的message
+message MoveMessageNotify
+{
+    uint32 id = 1;		    	// 玩家ID
+    Vector_Two position = 2;	// 坦克位置
+    float baseForward = 3;	    // 坦克基座的朝向
+    float turretForward = 4;    // 坦克炮台的朝向
+    int64 timeChuo = 5;
+    Vector_Three velocity = 6; 
+    bool isDiscovered = 7;
+    bool isInvicinble = 8;
+}
+
+// 定义移动相关的message
+message FireShellNotify
+{
+    Vector_Three shellPostion = 1;  // 炮弹位置
+    Vector_Three shellForward = 2;  // 炮弹方向
+    enum SHELL_TYPE
+	{
+		APSHELL = 0;		
+		HESHELL = 1;		
+		ENERGYBOMB = 2;		
+    }
+    SHELL_TYPE shell_type = 3;
+}
+
+message SliderMessageNotify
+{
+    enum Status
+	{
+		STATUS_NEUTRAL = 0;
+		STATUS_LOADING_A = 1;
+        STATUS_LOADING_B = 2;
+        STATUS_CONFLICT = 3;
+        STATUS_OCCUPIED = 4;
+	};
+	enum Owner
+	{
+		NO_OWNER = 0;
+        TEAM_A_OWNER = 1;
+        TEAM_B_OWNER = 2;
+	};
+	uint32 id = 1;
+	Status status = 2;
+	Owner ownership = 3;
+	float control_rate = 4;
+
+};
+
+// CheckHit Message：104
+message CheckHitMessage
+{
+	uint32 tank_blood = 1;		// 当前坦克血量
+	bool isHit = 2;				// 坦克是否被击中
+	Vector_Two hitedPos = 3;	// 坦克被击中的角度
+	uint32 enemy_id = 4;		// 击中坦克的敌人ID
+	uint32 dmg = 5;				// 造成的伤害
+	bool isInShield = 6;		// 该坦克是否处于护盾状态
+}
+
+// Kill Message：105
+message KillMessageNotify
+{
+	uint32 enemy_id = 1;	// 击杀自己的敌人id
+}
+
+// LifeShield Message：106
+message LifeShieldNotify
+{
+	uint32 ret = 1;		// 生命护盾开或关
+	uint32 id = 2;		// 需要开关生命护盾的坦克的id
+}
+
+// MagExplosion Message: 107
+message MagExplosionNotify
+{
+	bool ready = 1;		// 是否处于技能的准备状态（true：处于准备状态，原坦克显示一个范围圈；false：不处于准备状态，被技能击中的坦克感电）
+	uint32 id = 2;		// 处于感电状态的坦克id
+}
+
+// Laser Message: 108
+message LaserNotify
+{
+	uint32 ret = 1;     // 游侠激光技能的状态(1：蓄力；2：发射；3：关闭)
+}
+
+// BarrelExplosion Message: 109
+message BarrelExplosionNotify
+{
+	bool isBombed = 1;  // 炸药桶是否爆炸
+	Vector_Three position = 2;   // 炸药桶的位置
+	uint32 damage = 3;  // 伤害量
+	float radius = 4;   // 爆炸范围
+}

@@ -45,6 +45,8 @@ enum CmdMiniServerType
 	CmdTankUpgradeRsp = 39;
 	CmdCheckGamingReq = 40;
 	CmdSinglePlayReq = 41;
+	CmdRoomStateNotify = 42;
+	CmdJoinTimeoutNotify = 43;
 }
 
 message InternalErrorRsp
@@ -272,7 +274,8 @@ message RoomInfoNotify
 
 message ClientReadyNotify{};
 
-message GameStartNotify{
+message GameStartNotify
+{
 	uint32 world_timeout = 1;
 };
 
@@ -400,10 +403,27 @@ message TankUpgradeRsp
 
 message CheckGamingReq
 {
-
 };
+
 message SinglePlayReq
 {
 	uint32 tank_type = 1;
 	uint32 valkyrie_type = 2;
+};
+
+message RoomStateNotify
+{
+	uint32 connect_num = 1;
+	uint32 total_num = 2;
+};
+
+message RoomCloseNotify
+{
+	enum CloseCause
+	{
+		UNKNOWN_REASON = 0;
+		EXIT = 1;
+		TIMEOUT = 2;
+	};
+	CloseCause cause = 1;
 };
