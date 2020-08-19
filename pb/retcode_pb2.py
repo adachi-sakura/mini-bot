@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10pb/retcode.proto\x12\x05proto*A\n\x07Retcode\x12\x0c\n\x08RET_SUCC\x10\x00\x12\x0c\n\x08RET_FAIL\x10\x01\x12\x1a\n\x16RET_AUTHENTICATED_NEED\x10\x02\x62\x06proto3'
+  serialized_pb=b'\n\x10pb/retcode.proto\x12\x05proto*\xad\x01\n\x07Retcode\x12\x0c\n\x08RET_SUCC\x10\x00\x12\x0c\n\x08RET_FAIL\x10\x01\x12\x1a\n\x16RET_AUTHENTICATED_NEED\x10\x02\x12\x10\n\x0cRET_NOTFOUND\x10\x03\x12\x15\n\x11RET_DUPLICATE_KEY\x10\x04\x12\x16\n\x12RET_INTERNAL_ERROR\x10\x05\x12\x17\n\x13RET_INVALID_REQUEST\x10\x06\x12\x10\n\x0cRET_CONFLICT\x10\x07\x62\x06proto3'
 )
 
 _RETCODE = _descriptor.EnumDescriptor(
@@ -45,11 +45,36 @@ _RETCODE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='RET_NOTFOUND', index=3, number=3,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='RET_DUPLICATE_KEY', index=4, number=4,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='RET_INTERNAL_ERROR', index=5, number=5,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='RET_INVALID_REQUEST', index=6, number=6,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='RET_CONFLICT', index=7, number=7,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=27,
-  serialized_end=92,
+  serialized_start=28,
+  serialized_end=201,
 )
 _sym_db.RegisterEnumDescriptor(_RETCODE)
 
@@ -57,6 +82,11 @@ Retcode = enum_type_wrapper.EnumTypeWrapper(_RETCODE)
 RET_SUCC = 0
 RET_FAIL = 1
 RET_AUTHENTICATED_NEED = 2
+RET_NOTFOUND = 3
+RET_DUPLICATE_KEY = 4
+RET_INTERNAL_ERROR = 5
+RET_INVALID_REQUEST = 6
+RET_CONFLICT = 7
 
 
 DESCRIPTOR.enum_types_by_name['Retcode'] = _RETCODE

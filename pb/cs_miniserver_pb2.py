@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16pb/cs_miniserver.proto\x12\x05proto\"#\n\x10InternalErrorRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\"\x1f\n\x04Item\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0b\n\x03num\x18\x02 \x01(\r\"&\n\x08Valkyrie\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0e\n\x06\x61mitie\x18\x02 \x01(\r\"!\n\x04Tank\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05level\x18\x02 \x01(\r\",\n\nSumListReq\x12\x1e\n\titem_list\x18\x01 \x03(\x0b\x32\x0b.proto.Item\"=\n\nSumListRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x1e\n\titem_list\x18\x02 \x03(\x0b\x32\x0b.proto.Item\"1\n\x0bRegisterReq\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1e\n\x0bRegisterRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\".\n\x08LoginReq\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"L\n\x07Profile\x12\x0c\n\x04wins\x18\x01 \x01(\r\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0f\n\x07\x63omment\x18\x03 \x01(\t\x12\x13\n\x0b\x63reate_time\x18\x04 \x01(\t\"\x89\x02\n\x08LoginRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0b\n\x03uid\x18\x02 \x01(\r\x12\x10\n\x08nickname\x18\x03 \x01(\t\x12\x0f\n\x07stamina\x18\x04 \x01(\r\x12\x0c\n\x04gold\x18\x05 \x01(\r\x12\x0f\n\x07\x63rystal\x18\x06 \x01(\r\x12\x1a\n\x05items\x18\x07 \x03(\x0b\x32\x0b.proto.Item\x12\x1f\n\x07profile\x18\x08 \x01(\x0b\x32\x0e.proto.Profile\x12\'\n\x0evalkyrie_datas\x18\t \x03(\x0b\x32\x0f.proto.Valkyrie\x12\x1f\n\ntank_datas\x18\n \x03(\x0b\x32\x0b.proto.Tank\x12\x16\n\x0eis_first_login\x18\x0b \x01(\x08\"\x0f\n\rCreateRoomReq\"1\n\rCreateRoomRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0f\n\x07room_id\x18\x02 \x01(\r\"-\n\x0bJoinRoomReq\x12\x0f\n\x07room_id\x18\x01 \x01(\r\x12\r\n\x05token\x18\x02 \x01(\t\"\x1e\n\x0bJoinRoomRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\"4\n\x08MatchReq\x12\x11\n\ttank_type\x18\x01 \x01(\r\x12\x15\n\rvalkyrie_type\x18\x02 \x01(\r\"d\n\x06Player\x12\x11\n\tplayer_id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\ttank_type\x18\x03 \x01(\r\x12\x15\n\rvalkyrie_type\x18\x04 \x01(\r\x12\x0f\n\x07is_fake\x18\x05 \x01(\x08\"&\n\x04Team\x12\x1e\n\x07players\x18\x01 \x03(\x0b\x32\r.proto.Player\"\xb1\x01\n\x04Room\x12\x0f\n\x07room_id\x18\x01 \x01(\r\x12\x1b\n\x06team_a\x18\x02 \x01(\x0b\x32\x0b.proto.Team\x12\x1b\n\x06team_b\x18\x03 \x01(\x0b\x32\x0b.proto.Team\x12\"\n\x04type\x18\x04 \x01(\x0e\x32\x14.proto.Room.RoomType\":\n\x08RoomType\x12\r\n\tTYPE_NONE\x10\x00\x12\x0e\n\nTYPE_MULTI\x10\x01\x12\x0f\n\x0bTYPE_SINGLE\x10\x02\")\n\rServerAddress\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\r\"c\n\x0cGameMatchRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0f\n\x07room_id\x18\x02 \x01(\r\x12\"\n\x04\x61\x64\x64r\x18\x03 \x01(\x0b\x32\x14.proto.ServerAddress\x12\r\n\x05token\x18\x04 \x01(\t\"f\n\x08MatchRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0f\n\x07room_id\x18\x02 \x01(\r\x12\x1b\n\x06team_a\x18\x03 \x01(\x0b\x32\x0b.proto.Team\x12\x1b\n\x06team_b\x18\x04 \x01(\x0b\x32\x0b.proto.Team\"*\n\x0e\x43\x61ncelMatchReq\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\r\"!\n\x0e\x43\x61ncelMatchRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\"!\n\x12PlayerExitedNotify\x12\x0b\n\x03uid\x18\x01 \x01(\r\"\"\n\x10GameFinishNotify\x12\x0e\n\x06winner\x18\x01 \x01(\r\"1\n\x0fTeamScoreNotify\x12\x0f\n\x07team_id\x18\x01 \x01(\r\x12\r\n\x05score\x18\x02 \x01(\r\"\xd1\x02\n\x14\x46lagPointStateNotify\x12\n\n\x02id\x18\x01 \x01(\r\x12\x32\n\x06status\x18\x02 \x01(\x0e\x32\".proto.FlagPointStateNotify.Status\x12\x34\n\townership\x18\x03 \x01(\x0e\x32!.proto.FlagPointStateNotify.Owner\x12\x14\n\x0c\x63ontrol_rate\x18\x04 \x01(\x02\"r\n\x06Status\x12\x12\n\x0eSTATUS_NEUTRAL\x10\x00\x12\x14\n\x10STATUS_LOADING_A\x10\x01\x12\x14\n\x10STATUS_LOADING_B\x10\x02\x12\x13\n\x0fSTATUS_CONFLICT\x10\x03\x12\x13\n\x0fSTATUS_OCCUPIED\x10\x04\"9\n\x05Owner\x12\x0c\n\x08NO_OWNER\x10\x00\x12\x10\n\x0cTEAM_A_OWNER\x10\x01\x12\x10\n\x0cTEAM_B_OWNER\x10\x02\"b\n\nAddressReq\x12(\n\x06server\x18\x01 \x01(\x0e\x32\x18.proto.AddressReq.Server\"*\n\x06Server\x12\x0e\n\nServerNone\x10\x00\x12\x10\n\x0c\x42\x61ttleServer\x10\x01\"7\n\nAddressRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\r\"\x0e\n\x0cHandshakeRsp\"0\n\x0eRoomInfoNotify\x12\x1e\n\troom_info\x18\x01 \x01(\x0b\x32\x0b.proto.Room\"\x13\n\x11\x43lientReadyNotify\"(\n\x0fGameStartNotify\x12\x15\n\rworld_timeout\x18\x01 \x01(\r\"+\n\x0cMatchingList\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63ur_num\x18\x02 \x01(\r\"@\n\x13MatchingStateNotify\x12)\n\x0clists_status\x18\x01 \x03(\x0b\x32\x13.proto.MatchingList\"\x11\n\x0fHeartbeatNotify\"x\n\x0fSyncTimerNotify\x12.\n\x04type\x18\x01 \x01(\x0e\x32 .proto.SyncTimerNotify.TimerType\x12\x0c\n\x04left\x18\x02 \x01(\r\"\'\n\tTimerType\x12\x0b\n\x07NO_TYPE\x10\x00\x12\r\n\tGAMEWORLD\x10\x01\"\xd4\x01\n\tStatistic\x12,\n\x04type\x18\x01 \x01(\x0e\x32\x1e.proto.Statistic.StatisticType\x12\r\n\x05value\x18\x02 \x01(\r\x12\x10\n\x08maxValue\x18\x03 \x01(\r\x12\x0c\n\x04rank\x18\x04 \x01(\r\x12\x13\n\x0btotalPlayer\x18\x05 \x01(\r\"U\n\rStatisticType\x12\r\n\tTYPE_KILL\x10\x00\x12\x0e\n\nTYPE_DEATH\x10\x01\x12\x0f\n\x0bTYPE_DAMAGE\x10\x02\x12\x14\n\x10TYPE_TAKE_DAMAGE\x10\x03\"\xbf\x01\n\x10GameResultNotify\x12.\n\x06result\x18\x01 \x01(\x0e\x32\x1e.proto.GameResultNotify.Result\x12$\n\nstatistics\x18\x02 \x03(\x0b\x32\x10.proto.Statistic\x12\x1a\n\x05items\x18\x03 \x03(\x0b\x32\x0b.proto.Item\x12\x0c\n\x04wins\x18\x04 \x01(\r\"+\n\x06Result\x12\x0e\n\nNoneResult\x10\x00\x12\x07\n\x03Win\x10\x01\x12\x08\n\x04Lose\x10\x02\"\x10\n\x0eGetShopInfoReq\"\xb0\x01\n\x08ShopItem\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0e\n\x06itemID\x18\x02 \x01(\r\x12,\n\nShopBanner\x18\x03 \x01(\x0e\x32\x18.proto.ShopItem.CashType\x12\x16\n\x0eshopItemAmount\x18\x04 \x01(\r\x12\x15\n\rshopItemPrice\x18\x05 \x01(\r\"+\n\x08\x43\x61shType\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04GOLD\x10\x01\x12\x0b\n\x07\x43RYSTAL\x10\x02\"A\n\x0eGetShopInfoRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x1e\n\x05items\x18\x02 \x03(\x0b\x32\x0f.proto.ShopItem\",\n\x0bShoppingReq\x12\x1d\n\x04item\x18\x01 \x01(\x0b\x32\x0f.proto.ShopItem\"=\n\x0bShoppingRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0c\n\x04gold\x18\x02 \x01(\r\x12\x0f\n\x07\x63rystal\x18\x03 \x01(\r\"\x16\n\x14\x43onfigReloadedNotify\"E\n\x10ProfileUpdateReq\x12\x10\n\x08nickname\x18\x01 \x01(\t\x12\x1f\n\x07profile\x18\x02 \x01(\x0b\x32\x0e.proto.Profile\"E\n\x10ProfileUpdateRsp\x12\x10\n\x08nickname\x18\x01 \x01(\t\x12\x1f\n\x07profile\x18\x02 \x01(\x0b\x32\x0e.proto.Profile\"\x1c\n\x0eTankUpgradeReq\x12\n\n\x02id\x18\x01 \x01(\r\"U\n\x0eTankUpgradeRsp\x12\x19\n\x04tank\x18\x01 \x01(\x0b\x32\x0b.proto.Tank\x12\x0c\n\x04gold\x18\x02 \x01(\r\x12\x1a\n\x05items\x18\x03 \x03(\x0b\x32\x0b.proto.Item\"\x10\n\x0e\x43heckGamingReq\"9\n\rSinglePlayReq\x12\x11\n\ttank_type\x18\x01 \x01(\r\x12\x15\n\rvalkyrie_type\x18\x02 \x01(\r*\xc2\x07\n\x11\x43mdMiniServerType\x12\x19\n\x15\x43mdMiniServerTypeNone\x10\x00\x12\x17\n\x13\x43mdInternalErrorRsp\x10\x01\x12\x11\n\rCmdSumListReq\x10\x02\x12\x11\n\rCmdSumListRsp\x10\x03\x12\x0f\n\x0b\x43mdLoginReq\x10\x04\x12\x0f\n\x0b\x43mdLoginRsp\x10\x05\x12\x14\n\x10\x43mdCreateRoomReq\x10\x06\x12\x14\n\x10\x43mdCreateRoomRsp\x10\x07\x12\x12\n\x0e\x43mdJoinRoomReq\x10\x08\x12\x12\n\x0e\x43mdJoinRoomRsp\x10\t\x12\x0f\n\x0b\x43mdMatchReq\x10\n\x12\x0f\n\x0b\x43mdMatchRsp\x10\x0b\x12\x15\n\x11\x43mdCancelMatchReq\x10\x0c\x12\x15\n\x11\x43mdCancelMatchRsp\x10\r\x12\x19\n\x15\x43mdPlayerExitedNotify\x10\x0e\x12\x12\n\x0e\x43mdRegisterReq\x10\x0f\x12\x12\n\x0e\x43mdRegisterRsp\x10\x10\x12\x17\n\x13\x43mdGameFinishNotify\x10\x11\x12\x16\n\x12\x43mdTeamScoreNotify\x10\x12\x12\x1b\n\x17\x43mdFlagPointStateNotify\x10\x13\x12\x11\n\rCmdAddressReq\x10\x14\x12\x11\n\rCmdAddressRsp\x10\x15\x12\x13\n\x0f\x43mdHandshakeRsp\x10\x16\x12\x13\n\x0f\x43mdGameMatchRsp\x10\x17\x12\x15\n\x11\x43mdRoomInfoNotify\x10\x18\x12\x18\n\x14\x43mdClientReadyNotify\x10\x19\x12\x16\n\x12\x43mdGameStartNotify\x10\x1a\x12\x1a\n\x16\x43mdMatchingStateNotify\x10\x1b\x12\x16\n\x12\x43mdHeartbeatNotify\x10\x1c\x12\x16\n\x12\x43mdSyncTimerNotify\x10\x1d\x12\x17\n\x13\x43mdGameResultNotify\x10\x1e\x12\x15\n\x11\x43mdGetShopInfoReq\x10\x1f\x12\x15\n\x11\x43mdGetShopInfoRsp\x10 \x12\x12\n\x0e\x43mdShoppingReq\x10!\x12\x12\n\x0e\x43mdShoppingRsp\x10\"\x12\x1b\n\x17\x43mdConfigReloadedNotify\x10#\x12\x17\n\x13\x43mdProfileUpdateReq\x10$\x12\x17\n\x13\x43mdProfileUpdateRsp\x10%\x12\x15\n\x11\x43mdTankUpgradeReq\x10&\x12\x15\n\x11\x43mdTankUpgradeRsp\x10\'\x12\x15\n\x11\x43mdCheckGamingReq\x10(\x12\x14\n\x10\x43mdSinglePlayReq\x10)b\x06proto3'
+  serialized_pb=b'\n\x16pb/cs_miniserver.proto\x12\x05proto\"#\n\x10InternalErrorRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\"\x1f\n\x04Item\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0b\n\x03num\x18\x02 \x01(\r\"&\n\x08Valkyrie\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0e\n\x06\x61mitie\x18\x02 \x01(\r\"!\n\x04Tank\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05level\x18\x02 \x01(\r\",\n\nSumListReq\x12\x1e\n\titem_list\x18\x01 \x03(\x0b\x32\x0b.proto.Item\"=\n\nSumListRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x1e\n\titem_list\x18\x02 \x03(\x0b\x32\x0b.proto.Item\"1\n\x0bRegisterReq\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1e\n\x0bRegisterRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\".\n\x08LoginReq\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"L\n\x07Profile\x12\x0c\n\x04wins\x18\x01 \x01(\r\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0f\n\x07\x63omment\x18\x03 \x01(\t\x12\x13\n\x0b\x63reate_time\x18\x04 \x01(\t\"\x89\x02\n\x08LoginRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0b\n\x03uid\x18\x02 \x01(\r\x12\x10\n\x08nickname\x18\x03 \x01(\t\x12\x0f\n\x07stamina\x18\x04 \x01(\r\x12\x0c\n\x04gold\x18\x05 \x01(\r\x12\x0f\n\x07\x63rystal\x18\x06 \x01(\r\x12\x1a\n\x05items\x18\x07 \x03(\x0b\x32\x0b.proto.Item\x12\x1f\n\x07profile\x18\x08 \x01(\x0b\x32\x0e.proto.Profile\x12\'\n\x0evalkyrie_datas\x18\t \x03(\x0b\x32\x0f.proto.Valkyrie\x12\x1f\n\ntank_datas\x18\n \x03(\x0b\x32\x0b.proto.Tank\x12\x16\n\x0eis_first_login\x18\x0b \x01(\x08\"\x0f\n\rCreateRoomReq\"1\n\rCreateRoomRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0f\n\x07room_id\x18\x02 \x01(\r\"-\n\x0bJoinRoomReq\x12\x0f\n\x07room_id\x18\x01 \x01(\r\x12\r\n\x05token\x18\x02 \x01(\t\"\x1e\n\x0bJoinRoomRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\"4\n\x08MatchReq\x12\x11\n\ttank_type\x18\x01 \x01(\r\x12\x15\n\rvalkyrie_type\x18\x02 \x01(\r\"d\n\x06Player\x12\x11\n\tplayer_id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\ttank_type\x18\x03 \x01(\r\x12\x15\n\rvalkyrie_type\x18\x04 \x01(\r\x12\x0f\n\x07is_fake\x18\x05 \x01(\x08\"&\n\x04Team\x12\x1e\n\x07players\x18\x01 \x03(\x0b\x32\r.proto.Player\"\xb1\x01\n\x04Room\x12\x0f\n\x07room_id\x18\x01 \x01(\r\x12\x1b\n\x06team_a\x18\x02 \x01(\x0b\x32\x0b.proto.Team\x12\x1b\n\x06team_b\x18\x03 \x01(\x0b\x32\x0b.proto.Team\x12\"\n\x04type\x18\x04 \x01(\x0e\x32\x14.proto.Room.RoomType\":\n\x08RoomType\x12\r\n\tTYPE_NONE\x10\x00\x12\x0e\n\nTYPE_MULTI\x10\x01\x12\x0f\n\x0bTYPE_SINGLE\x10\x02\")\n\rServerAddress\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\r\"c\n\x0cGameMatchRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0f\n\x07room_id\x18\x02 \x01(\r\x12\"\n\x04\x61\x64\x64r\x18\x03 \x01(\x0b\x32\x14.proto.ServerAddress\x12\r\n\x05token\x18\x04 \x01(\t\"f\n\x08MatchRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0f\n\x07room_id\x18\x02 \x01(\r\x12\x1b\n\x06team_a\x18\x03 \x01(\x0b\x32\x0b.proto.Team\x12\x1b\n\x06team_b\x18\x04 \x01(\x0b\x32\x0b.proto.Team\"*\n\x0e\x43\x61ncelMatchReq\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\r\"!\n\x0e\x43\x61ncelMatchRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\"!\n\x12PlayerExitedNotify\x12\x0b\n\x03uid\x18\x01 \x01(\r\"\"\n\x10GameFinishNotify\x12\x0e\n\x06winner\x18\x01 \x01(\r\"1\n\x0fTeamScoreNotify\x12\x0f\n\x07team_id\x18\x01 \x01(\r\x12\r\n\x05score\x18\x02 \x01(\r\"\xd1\x02\n\x14\x46lagPointStateNotify\x12\n\n\x02id\x18\x01 \x01(\r\x12\x32\n\x06status\x18\x02 \x01(\x0e\x32\".proto.FlagPointStateNotify.Status\x12\x34\n\townership\x18\x03 \x01(\x0e\x32!.proto.FlagPointStateNotify.Owner\x12\x14\n\x0c\x63ontrol_rate\x18\x04 \x01(\x02\"r\n\x06Status\x12\x12\n\x0eSTATUS_NEUTRAL\x10\x00\x12\x14\n\x10STATUS_LOADING_A\x10\x01\x12\x14\n\x10STATUS_LOADING_B\x10\x02\x12\x13\n\x0fSTATUS_CONFLICT\x10\x03\x12\x13\n\x0fSTATUS_OCCUPIED\x10\x04\"9\n\x05Owner\x12\x0c\n\x08NO_OWNER\x10\x00\x12\x10\n\x0cTEAM_A_OWNER\x10\x01\x12\x10\n\x0cTEAM_B_OWNER\x10\x02\"b\n\nAddressReq\x12(\n\x06server\x18\x01 \x01(\x0e\x32\x18.proto.AddressReq.Server\"*\n\x06Server\x12\x0e\n\nServerNone\x10\x00\x12\x10\n\x0c\x42\x61ttleServer\x10\x01\"7\n\nAddressRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\r\"\x0e\n\x0cHandshakeRsp\"0\n\x0eRoomInfoNotify\x12\x1e\n\troom_info\x18\x01 \x01(\x0b\x32\x0b.proto.Room\"\x13\n\x11\x43lientReadyNotify\"(\n\x0fGameStartNotify\x12\x15\n\rworld_timeout\x18\x01 \x01(\r\"+\n\x0cMatchingList\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63ur_num\x18\x02 \x01(\r\"@\n\x13MatchingStateNotify\x12)\n\x0clists_status\x18\x01 \x03(\x0b\x32\x13.proto.MatchingList\"\x11\n\x0fHeartbeatNotify\"x\n\x0fSyncTimerNotify\x12.\n\x04type\x18\x01 \x01(\x0e\x32 .proto.SyncTimerNotify.TimerType\x12\x0c\n\x04left\x18\x02 \x01(\r\"\'\n\tTimerType\x12\x0b\n\x07NO_TYPE\x10\x00\x12\r\n\tGAMEWORLD\x10\x01\"\xd4\x01\n\tStatistic\x12,\n\x04type\x18\x01 \x01(\x0e\x32\x1e.proto.Statistic.StatisticType\x12\r\n\x05value\x18\x02 \x01(\r\x12\x10\n\x08maxValue\x18\x03 \x01(\r\x12\x0c\n\x04rank\x18\x04 \x01(\r\x12\x13\n\x0btotalPlayer\x18\x05 \x01(\r\"U\n\rStatisticType\x12\r\n\tTYPE_KILL\x10\x00\x12\x0e\n\nTYPE_DEATH\x10\x01\x12\x0f\n\x0bTYPE_DAMAGE\x10\x02\x12\x14\n\x10TYPE_TAKE_DAMAGE\x10\x03\"\xbf\x01\n\x10GameResultNotify\x12.\n\x06result\x18\x01 \x01(\x0e\x32\x1e.proto.GameResultNotify.Result\x12$\n\nstatistics\x18\x02 \x03(\x0b\x32\x10.proto.Statistic\x12\x1a\n\x05items\x18\x03 \x03(\x0b\x32\x0b.proto.Item\x12\x0c\n\x04wins\x18\x04 \x01(\r\"+\n\x06Result\x12\x0e\n\nNoneResult\x10\x00\x12\x07\n\x03Win\x10\x01\x12\x08\n\x04Lose\x10\x02\"\x10\n\x0eGetShopInfoReq\"\xb0\x01\n\x08ShopItem\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0e\n\x06itemID\x18\x02 \x01(\r\x12,\n\nShopBanner\x18\x03 \x01(\x0e\x32\x18.proto.ShopItem.CashType\x12\x16\n\x0eshopItemAmount\x18\x04 \x01(\r\x12\x15\n\rshopItemPrice\x18\x05 \x01(\r\"+\n\x08\x43\x61shType\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04GOLD\x10\x01\x12\x0b\n\x07\x43RYSTAL\x10\x02\"A\n\x0eGetShopInfoRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x1e\n\x05items\x18\x02 \x03(\x0b\x32\x0f.proto.ShopItem\",\n\x0bShoppingReq\x12\x1d\n\x04item\x18\x01 \x01(\x0b\x32\x0f.proto.ShopItem\"=\n\x0bShoppingRsp\x12\x0f\n\x07retcode\x18\x01 \x01(\r\x12\x0c\n\x04gold\x18\x02 \x01(\r\x12\x0f\n\x07\x63rystal\x18\x03 \x01(\r\"\x16\n\x14\x43onfigReloadedNotify\"E\n\x10ProfileUpdateReq\x12\x10\n\x08nickname\x18\x01 \x01(\t\x12\x1f\n\x07profile\x18\x02 \x01(\x0b\x32\x0e.proto.Profile\"E\n\x10ProfileUpdateRsp\x12\x10\n\x08nickname\x18\x01 \x01(\t\x12\x1f\n\x07profile\x18\x02 \x01(\x0b\x32\x0e.proto.Profile\"\x1c\n\x0eTankUpgradeReq\x12\n\n\x02id\x18\x01 \x01(\r\"U\n\x0eTankUpgradeRsp\x12\x19\n\x04tank\x18\x01 \x01(\x0b\x32\x0b.proto.Tank\x12\x0c\n\x04gold\x18\x02 \x01(\r\x12\x1a\n\x05items\x18\x03 \x03(\x0b\x32\x0b.proto.Item\"\x10\n\x0e\x43heckGamingReq\"9\n\rSinglePlayReq\x12\x11\n\ttank_type\x18\x01 \x01(\r\x12\x15\n\rvalkyrie_type\x18\x02 \x01(\r\"9\n\x0fRoomStateNotify\x12\x13\n\x0b\x63onnect_num\x18\x01 \x01(\r\x12\x11\n\ttotal_num\x18\x02 \x01(\r\"|\n\x0fRoomCloseNotify\x12\x30\n\x05\x63\x61use\x18\x01 \x01(\x0e\x32!.proto.RoomCloseNotify.CloseCause\"7\n\nCloseCause\x12\x12\n\x0eUNKNOWN_REASON\x10\x00\x12\x08\n\x04\x45XIT\x10\x01\x12\x0b\n\x07TIMEOUT\x10\x02*\xf4\x07\n\x11\x43mdMiniServerType\x12\x19\n\x15\x43mdMiniServerTypeNone\x10\x00\x12\x17\n\x13\x43mdInternalErrorRsp\x10\x01\x12\x11\n\rCmdSumListReq\x10\x02\x12\x11\n\rCmdSumListRsp\x10\x03\x12\x0f\n\x0b\x43mdLoginReq\x10\x04\x12\x0f\n\x0b\x43mdLoginRsp\x10\x05\x12\x14\n\x10\x43mdCreateRoomReq\x10\x06\x12\x14\n\x10\x43mdCreateRoomRsp\x10\x07\x12\x12\n\x0e\x43mdJoinRoomReq\x10\x08\x12\x12\n\x0e\x43mdJoinRoomRsp\x10\t\x12\x0f\n\x0b\x43mdMatchReq\x10\n\x12\x0f\n\x0b\x43mdMatchRsp\x10\x0b\x12\x15\n\x11\x43mdCancelMatchReq\x10\x0c\x12\x15\n\x11\x43mdCancelMatchRsp\x10\r\x12\x19\n\x15\x43mdPlayerExitedNotify\x10\x0e\x12\x12\n\x0e\x43mdRegisterReq\x10\x0f\x12\x12\n\x0e\x43mdRegisterRsp\x10\x10\x12\x17\n\x13\x43mdGameFinishNotify\x10\x11\x12\x16\n\x12\x43mdTeamScoreNotify\x10\x12\x12\x1b\n\x17\x43mdFlagPointStateNotify\x10\x13\x12\x11\n\rCmdAddressReq\x10\x14\x12\x11\n\rCmdAddressRsp\x10\x15\x12\x13\n\x0f\x43mdHandshakeRsp\x10\x16\x12\x13\n\x0f\x43mdGameMatchRsp\x10\x17\x12\x15\n\x11\x43mdRoomInfoNotify\x10\x18\x12\x18\n\x14\x43mdClientReadyNotify\x10\x19\x12\x16\n\x12\x43mdGameStartNotify\x10\x1a\x12\x1a\n\x16\x43mdMatchingStateNotify\x10\x1b\x12\x16\n\x12\x43mdHeartbeatNotify\x10\x1c\x12\x16\n\x12\x43mdSyncTimerNotify\x10\x1d\x12\x17\n\x13\x43mdGameResultNotify\x10\x1e\x12\x15\n\x11\x43mdGetShopInfoReq\x10\x1f\x12\x15\n\x11\x43mdGetShopInfoRsp\x10 \x12\x12\n\x0e\x43mdShoppingReq\x10!\x12\x12\n\x0e\x43mdShoppingRsp\x10\"\x12\x1b\n\x17\x43mdConfigReloadedNotify\x10#\x12\x17\n\x13\x43mdProfileUpdateReq\x10$\x12\x17\n\x13\x43mdProfileUpdateRsp\x10%\x12\x15\n\x11\x43mdTankUpgradeReq\x10&\x12\x15\n\x11\x43mdTankUpgradeRsp\x10\'\x12\x15\n\x11\x43mdCheckGamingReq\x10(\x12\x14\n\x10\x43mdSinglePlayReq\x10)\x12\x16\n\x12\x43mdRoomStateNotify\x10*\x12\x18\n\x14\x43mdJoinTimeoutNotify\x10+b\x06proto3'
 )
 
 _CMDMINISERVERTYPE = _descriptor.EnumDescriptor(
@@ -240,11 +240,21 @@ _CMDMINISERVERTYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CmdRoomStateNotify', index=42, number=42,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CmdJoinTimeoutNotify', index=43, number=43,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3757,
-  serialized_end=4719,
+  serialized_start=3942,
+  serialized_end=4954,
 )
 _sym_db.RegisterEnumDescriptor(_CMDMINISERVERTYPE)
 
@@ -291,6 +301,8 @@ CmdTankUpgradeReq = 38
 CmdTankUpgradeRsp = 39
 CmdCheckGamingReq = 40
 CmdSinglePlayReq = 41
+CmdRoomStateNotify = 42
+CmdJoinTimeoutNotify = 43
 
 
 _ROOM_ROOMTYPE = _descriptor.EnumDescriptor(
@@ -537,6 +549,36 @@ _SHOPITEM_CASHTYPE = _descriptor.EnumDescriptor(
   serialized_end=3218,
 )
 _sym_db.RegisterEnumDescriptor(_SHOPITEM_CASHTYPE)
+
+_ROOMCLOSENOTIFY_CLOSECAUSE = _descriptor.EnumDescriptor(
+  name='CloseCause',
+  full_name='proto.RoomCloseNotify.CloseCause',
+  filename=None,
+  file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='UNKNOWN_REASON', index=0, number=0,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='EXIT', index=1, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='TIMEOUT', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=3884,
+  serialized_end=3939,
+)
+_sym_db.RegisterEnumDescriptor(_ROOMCLOSENOTIFY_CLOSECAUSE)
 
 
 _INTERNALERRORRSP = _descriptor.Descriptor(
@@ -2609,6 +2651,78 @@ _SINGLEPLAYREQ = _descriptor.Descriptor(
   serialized_end=3754,
 )
 
+
+_ROOMSTATENOTIFY = _descriptor.Descriptor(
+  name='RoomStateNotify',
+  full_name='proto.RoomStateNotify',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='connect_num', full_name='proto.RoomStateNotify.connect_num', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='total_num', full_name='proto.RoomStateNotify.total_num', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3756,
+  serialized_end=3813,
+)
+
+
+_ROOMCLOSENOTIFY = _descriptor.Descriptor(
+  name='RoomCloseNotify',
+  full_name='proto.RoomCloseNotify',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cause', full_name='proto.RoomCloseNotify.cause', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _ROOMCLOSENOTIFY_CLOSECAUSE,
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3815,
+  serialized_end=3939,
+)
+
 _SUMLISTREQ.fields_by_name['item_list'].message_type = _ITEM
 _SUMLISTRSP.fields_by_name['item_list'].message_type = _ITEM
 _LOGINRSP.fields_by_name['items'].message_type = _ITEM
@@ -2647,6 +2761,8 @@ _PROFILEUPDATEREQ.fields_by_name['profile'].message_type = _PROFILE
 _PROFILEUPDATERSP.fields_by_name['profile'].message_type = _PROFILE
 _TANKUPGRADERSP.fields_by_name['tank'].message_type = _TANK
 _TANKUPGRADERSP.fields_by_name['items'].message_type = _ITEM
+_ROOMCLOSENOTIFY.fields_by_name['cause'].enum_type = _ROOMCLOSENOTIFY_CLOSECAUSE
+_ROOMCLOSENOTIFY_CLOSECAUSE.containing_type = _ROOMCLOSENOTIFY
 DESCRIPTOR.message_types_by_name['InternalErrorRsp'] = _INTERNALERRORRSP
 DESCRIPTOR.message_types_by_name['Item'] = _ITEM
 DESCRIPTOR.message_types_by_name['Valkyrie'] = _VALKYRIE
@@ -2699,6 +2815,8 @@ DESCRIPTOR.message_types_by_name['TankUpgradeReq'] = _TANKUPGRADEREQ
 DESCRIPTOR.message_types_by_name['TankUpgradeRsp'] = _TANKUPGRADERSP
 DESCRIPTOR.message_types_by_name['CheckGamingReq'] = _CHECKGAMINGREQ
 DESCRIPTOR.message_types_by_name['SinglePlayReq'] = _SINGLEPLAYREQ
+DESCRIPTOR.message_types_by_name['RoomStateNotify'] = _ROOMSTATENOTIFY
+DESCRIPTOR.message_types_by_name['RoomCloseNotify'] = _ROOMCLOSENOTIFY
 DESCRIPTOR.enum_types_by_name['CmdMiniServerType'] = _CMDMINISERVERTYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -3065,6 +3183,20 @@ SinglePlayReq = _reflection.GeneratedProtocolMessageType('SinglePlayReq', (_mess
   # @@protoc_insertion_point(class_scope:proto.SinglePlayReq)
   })
 _sym_db.RegisterMessage(SinglePlayReq)
+
+RoomStateNotify = _reflection.GeneratedProtocolMessageType('RoomStateNotify', (_message.Message,), {
+  'DESCRIPTOR' : _ROOMSTATENOTIFY,
+  '__module__' : 'pb.cs_miniserver_pb2'
+  # @@protoc_insertion_point(class_scope:proto.RoomStateNotify)
+  })
+_sym_db.RegisterMessage(RoomStateNotify)
+
+RoomCloseNotify = _reflection.GeneratedProtocolMessageType('RoomCloseNotify', (_message.Message,), {
+  'DESCRIPTOR' : _ROOMCLOSENOTIFY,
+  '__module__' : 'pb.cs_miniserver_pb2'
+  # @@protoc_insertion_point(class_scope:proto.RoomCloseNotify)
+  })
+_sym_db.RegisterMessage(RoomCloseNotify)
 
 
 # @@protoc_insertion_point(module_scope)

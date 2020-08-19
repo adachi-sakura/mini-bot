@@ -19,7 +19,12 @@ enum Retcode
     // [0,100) 基础错误码
     RET_SUCC = 0;
     RET_FAIL = 1;
-    RET_AUTHENTICATED_NEED = 2;
+    RET_AUTHENTICATED_NEED = 2; //需要登录才能使用该接口
+    RET_NOTFOUND = 3; //数据未找到
+    RET_DUPLICATE_KEY = 4; //账号名重复等
+    RET_INTERNAL_ERROR = 5; //服务器内部处理错误
+    RET_INVALID_REQUEST = 6; //请求内容非法
+    RET_CONFLICT = 7; //有冲突 如登录已在线账号 游戏中或匹配中状态重复匹配
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4 tw=100: */

@@ -1,0 +1,51 @@
+syntax = "proto3";
+package ProtoData;
+
+message ValkyrieData
+{
+    uint32 id = 1;
+    uint32 amitie = 2;
+};
+
+message TankData
+{
+    uint32 id = 1;
+    uint32 level = 2;
+};
+
+message ItemData
+{
+    uint32 id = 1;
+    uint32 num = 2;
+}
+
+message PlayerBin
+{
+    repeated ValkyrieData valkyrie_datas = 1;
+    repeated TankData tank_datas = 2;
+    repeated ItemData item_datas = 3;
+};
+
+message UserData
+{
+    uint32 uid = 1;
+    string username = 2;
+    uint32 stamina = 3;
+    uint32 gold = 4;
+    uint32 crystal = 5;
+    uint32 wins = 6;
+    string title = 7;
+    string comment = 8;
+    PlayerBin player_bin = 9;
+    string create_time = 10;
+    bool is_first_login = 11;
+
+};
+
+message UserAccount
+{
+    uint32 uid = 1;
+    string username = 2;
+    string password = 3;
+    bytes salt = 4;
+};

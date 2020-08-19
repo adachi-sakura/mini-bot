@@ -1,0 +1,139 @@
+syntax = "proto3";
+package proto;
+import "pb/cs_miniserver.proto";
+import "pb/player_data.proto";
+
+enum CmdServerCommuType
+{
+    CmdServerCommuTypeNone = 0;
+    CmdServerGameResultNotify= 201;
+    CmdServerMatchRsp = 202;
+    CmdServerCreateRoomReq = 203;
+    CmdServerCreateRoomRsp = 204;
+    CmdGameAbortNotify = 205;
+    CmdServerGetAccountReq = 206;
+    CmdServerGetAccountRsp = 207;
+    CmdServerCreateAccountReq = 208;
+    CmdServerCreateAccountRsp = 209;
+    CmdServerCreatePlayerReq = 210;
+    CmdServerCreatePlayerRsp = 211;
+    CmdServerUpdatePlayerReq = 212;
+    CmdServerUpdatePlayerRsp = 213;
+    CmdServerGetPlayerReq = 214;
+    CmdServerGetPlayerRsp = 215;
+    CmdServerUpdateLoginReq = 216;
+    CmdServerCheckAccountExistReq = 217;
+    CmdServerCheckAccountExistRsp = 218;
+}
+
+//心跳包
+message Heartbeat
+{};
+
+//头部带有玩家uid
+message ServerGameResultNotify
+{
+    enum Result
+    {
+        NoneResult = 0;
+        Win = 1;
+        Lose = 2;
+    };
+    Result result = 1;
+    uint32 tank_type = 2;
+    uint32 valkyrie_type = 3;
+    repeated Statistic statistics = 4;
+    Room.RoomType room_type = 5;
+};
+
+message GameAbortNotify
+{
+
+};
+
+message ServerMatchRsp
+{
+    uint32 retcode = 1;
+    Room room = 2;
+};
+
+message ServerCreateRoomReq
+{
+    Room room = 1;
+};
+
+message ServerCreateRoomRsp
+{
+    uint32 retcode = 1;
+    uint32 room_id = 2;
+    string token = 3;
+};
+
+message ServerCheckAccountExistReq
+{
+    string username = 1;
+};
+
+message ServerCheckAccountExistRsp
+{
+    uint32 retcode = 1;
+    bool account_exist = 2;
+};
+
+message ServerGetAccountReq
+{
+    string username = 1;
+};
+
+message ServerGetAccountRsp
+{
+    uint32 retcode = 1;
+    ProtoData.UserAccount account = 2;
+};
+
+message ServerCreateAccountReq
+{
+    ProtoData.UserAccount account = 1;
+};
+
+message ServerCreateAccountRsp
+{
+    uint32 retcode = 1;
+    ProtoData.UserAccount created_account = 2;
+};
+
+message ServerCreatePlayerReq
+{
+    ProtoData.UserData player_data = 1;
+};
+
+message ServerCreatePlayerRsp
+{
+    uint32 retcode = 1;
+}
+
+message ServerUpdatePlayerReq
+{
+    ProtoData.UserData player_data = 1;
+}
+
+message ServerUpdatePlayerRsp
+{
+    uint32 retcode = 1;
+}
+
+message ServerGetPlayerReq
+{
+    uint32 uid = 1;
+}
+
+message ServerGetPlayerRsp
+{
+    uint32 retcode = 1;
+    ProtoData.UserData player_data = 2;
+}
+
+message ServerUpdateLoginReq
+{
+    uint32 uid = 1;
+}

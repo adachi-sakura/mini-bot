@@ -5,18 +5,25 @@ import logging
 import threading
 import signal
 import sys
+from enum import Enum
 
 import robot
 import pb.cs_miniserver_pb2 as cs_pb
 import pb.retcode_pb2 as pb_retcode
 import pb.cs_gamemessage_pb2 as game_pb
+import pb.ss_miniserver_pb2 as ss_pb
+import pb.player_data_pb2 as data_pb
 import head_pb2 as pb_head
 # import pb.cs_one_pb2 as pb_one
 # import pb.cs_fight_pb2 as pb_fight
 
 robot.init_pb_module(cs_pb)
+robot.init_pb_module(ss_pb)
+robot.init_pb_module(game_pb)
 
 status = True
+
+dbOperation = Enum('DbOperation', (['createAccount', 'getAccount']))
 
 
 def sigHdr(sig, frame):
@@ -37,9 +44,12 @@ async def main():
     # robot1 = RegisterRobot('10.10.98.112', 10000, token='robot')
     # robot1 = SinglePlayRobot('10.10.98.112', 20000, token='robot')
     # robot2 = MyRobot2('10.10.98.111', 5000, token='robot2')
-    robot1 = MultiPlayRobot('10.10.98.112', 10000, 'sakura', '123')
-    robot2 = MultiPlayRobot('10.10.98.112', 10000, 'adachi', 'adachi')
-    await asyncio.gather(robot1.run(), robot2.run())
+    # robot1 = MultiPlayRobot('10.10.98.112', 10000, 'sakura', '123')
+    # robot2 = MultiPlayRobot('10.10.98.112', 10000, 'adachi', 'adachi')
+    # await asyncio.gather(robot1.run(), robot2.run())
+    robot = AccRobot('10.10.98.112', 11037, 'hahaha', '123',
+                     dbOperation.getAccount)
+    await robot.run()
     # await robot1.run()
 
 
@@ -56,6 +66,39 @@ class RegisterRobot(robot.Robot):
             return
         await self._send_proto_wait_for_rsp(
             cs_pb.LoginReq(username=self._username, password=self._pwd))
+        # await self._send_proto_wait_for_rsp(pb_one.ModifyNicknameReq(nickname='测试123'))
+        # await self._send_proto_wait_for_rsp(pb_one.GetMainDataReq())
+        # self._send_proto(pb_fight.GameStartNotify())
+        await asyncio.sleep(5)
+        pass
+
+
+class AccRobot(robot.Robot):
+    def __init__(self,
+                 host,
+                 port,
+                 username,
+                 pwd,
+                 op,
+                 token='robot',
+                 timeout=10):
+        super(AccRobot, self).__init__(host, port, token, timeout)
+        self._username = username
+        self._pwd = pwd
+        self._operation = op
+
+    async def _operate(self):
+        if self._operation is dbOperation.createAccount:
+            rsp = await self._send_proto_wait_for_rsp(
+                ss_pb.ServerCreateAccountReq(account=data_pb.UserAccount(
+                    username=self._username, password=self._pwd)))
+            if rsp.retcode is not pb_retcode.RET_SUCC:
+                return
+        elif self._operation is dbOperation.getAccount:
+            rsp = await self._send_proto_wait_for_rsp(
+                ss_pb.ServerGetAccountReq(username=self._username))
+            if rsp.retcode is not pb_retcode.RET_SUCC:
+                return
         # await self._send_proto_wait_for_rsp(pb_one.ModifyNicknameReq(nickname='测试123'))
         # await self._send_proto_wait_for_rsp(pb_one.GetMainDataReq())
         # self._send_proto(pb_fight.GameStartNotify())
